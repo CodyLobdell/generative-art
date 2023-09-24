@@ -5,6 +5,8 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let drawing = false;
+ctx.lineWidth = 0.4;
+ctx.globalCompositeOperation = 'destination-over'
 
 class Root {
   constructor(x, y) {
@@ -55,11 +57,19 @@ class Flower {
     this.frameX = Math.floor(Math.random() * 3);
     this.frameY = Math.floor(Math.random() * 3);
     this.size > 11.5 ? this.willFlower = true : this.willFlower = false;
+    this.angle = 0;
+    this.va = Math.random() * 0.05 - 0.025;
   };
   grow() {
     if (this.size < this.maxFlowerSize && this.willFlower) {
-      this.size += this.vs; 
-      ctx.drawImage(this.image, this.frameSize * this.frameX, this.frameSize * this.frameY, this.frameSize, this.frameSize, this.x, this.size/2, this.y, this.size/2, this.size, this.size);
+      this.size += this.vs;
+
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.angle);
+      ctx.drawImage(this.image, this.frameSize * this.frameX, this.frameSize * this.frameY, this.frameSize, this.frameSize, 0 - this.size/2, 0 - this.size/2, 0 - this.size/2, this.size, this.size);
+      ctx.restore();
+
       requestAnimationFrame(this.grow.bind(this));
     }
   }
