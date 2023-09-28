@@ -67,7 +67,7 @@ class Flower {
       ctx.save();
       ctx.translate(this.x, this.y);
       ctx.rotate(this.angle);
-      ctx.drawImage(this.image, this.frameSize * this.frameX, this.frameSize * this.frameY, this.frameSize, this.frameSize, 0 - this.size/2, 0 - this.size/2, 0 - this.size/2, this.size, this.size);
+      ctx.drawImage(this.image, this.frameSize * this.frameX, this.frameSize * this.frameY, this.frameSize, this.frameSize, 0 - this.size / 2, 0 - this.size / 2, 0 - this.size / 2, this.size, this.size);
       ctx.restore();
 
       requestAnimationFrame(this.grow.bind(this));
@@ -86,6 +86,10 @@ window.addEventListener('mousemove', function (e) {
 });
 window.addEventListener('mousedown', function () {
   drawing = true;
+  for (let i = 0; i < 3; i++) {
+    const root = new Root(e.x, e.y);
+    root.update();
+  }
 });
 window.addEventListener('mouseup', function () {
   drawing = false;
